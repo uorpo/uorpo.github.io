@@ -8,12 +8,19 @@ hole.addEventListener('animationiteration', () => {
 
 
 var vy = 0.0;
+var py = 50;
 var updateRate = 1 / 60;
 
 
 function deviceOrientationListener(event) {
     frontToBack_degrees = event.beta;
     vy = vy + frontToBack_degrees * updateRate;
+
+    py = py + vy * 0.1;
+    if (py > 70 || py < 0) {
+        py = Math.max(0, Math.min(70, py)); // Clip py between 0-98
+        vy = 0;
+    }
 
     newPosY = frontToBack_degrees * 10;
     if (newPosY > 100 || newPosY < -100) {
