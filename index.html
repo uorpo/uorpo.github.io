@@ -6,6 +6,18 @@
         <link rel="stylesheet" type="text/css" href="src/styles/flappyBird.css" />
     </head>
     <body>
+        <div
+            id="scale-content"
+            class="scale-content"
+            style="width: 100%; height: 100%"
+        >
+      <button
+            class="btn-success"
+            style="border-radius: 8px; margin-top: 40px"
+            onclick="getAccel()"
+      >
+        Bitte um Accelerometer Berechtigungen
+      </button>
         <button type="button" class="tilt"></button>
         <button type="button" class="blow"></button>
         <div id="game">
@@ -13,6 +25,7 @@
             <div id="hole"></div>
             <div id="bird"></div>
         </div>
+    </div>
     </body>
     <script src="src/scripts/flappyBird.js"></script>
 </html>
