@@ -21,7 +21,7 @@ function deviceMovementListener(event) {
     }
 
     bird = document.getElementById("bird");
-    bird.style.top = "calc(40% + 5px + " + newPosY + "px);"
+    bird.style.top = calc(40% + 5 + "px" + newPosY + "px")
 
 }
 
