@@ -11,7 +11,7 @@ var vy = 0.0;
 var updateRate = 1 / 60;
 
 
-function deviceMovementListener(event) {
+function deviceOrientationListener(event) {
     frontToBack_degrees = event.beta;
     vy = vy + frontToBack_degrees * updateRate;
 
@@ -62,7 +62,7 @@ function getAccel() {
         if (response == "granted") {
           // Add a listener to get smartphone orientation
           // in the alpha-beta-gamma axes (units in degrees)
-          window.addEventListener("deviceorientation", orientationListener);
+          window.addEventListener("deviceorientation", deviceOrientationListener);
         } else {
           alert("Konnte die Berechtigungen nicht einholen.");
         }
@@ -72,7 +72,7 @@ function getAccel() {
         alert("Konnte die Berechtigungen nicht einholen.");
       } else {
         alert("accelerometer found");
-        window.addEventListener("deviceorientation", orientationListener, true);
+        window.addEventListener("deviceorientation", deviceOrientationListener, true);
       }
     }
 }
