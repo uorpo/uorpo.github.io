@@ -64,3 +64,8 @@ button.tilt {
 button.blow {
     background-image: url(../images/wind.jpg);
 }
+
+
+.gameColor {
+    background-color: lightskyblue;
+}

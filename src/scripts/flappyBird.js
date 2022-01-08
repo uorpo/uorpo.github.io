@@ -1,9 +1,11 @@
 var pipe = document.getElementById("pipe");
 var hole = document.getElementById("hole");
+var score = 0;
 
 hole.addEventListener('animationiteration', () => {
     var random = -((Math.random() * 600) + 150);
     hole.style.top = random + "px";
+    score++;
 });
 
 
@@ -29,6 +31,11 @@ function deviceOrientationListener(event) {
 
     bird = document.getElementById("bird");
     bird.style.top = calc(40% + 5 + "px" + newPosY + "px");
+    if (bird.top > 830 || bird.top <= 100) {
+      alert("G a m e  o v e r!  S c o r e: " + score);
+      bird.style.top = 300 + "px";
+      score = 0;
+    }
 
 }
 
