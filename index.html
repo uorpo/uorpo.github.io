@@ -3,29 +3,49 @@
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <title>Flappy Bird</title>
-        <link rel="stylesheet" type="text/css" href="src/styles/flappyBird.css" />
+        <link rel="stylesheet" type="text/css" href="src/styles/index.css" />
     </head>
     <body>
-        <div
-            id="scale-content"
-            class="scale-content"
-            style="width: 100%; height: 100%"
-        >
-      <button
-            class="btn-success"
-            style="border-radius: 8px; margin-top: 40px"
-            onclick="getAccel()"
-      >
-        Bitte um Accelerometer Berechtigungen
-      </button>
-        <button type="button" class="tilt"></button>
-        <button type="button" class="blow"></button>
-        <div class="container-lg gameColor">
-            <div id="pipe"></div>
-            <div id="hole"></div>
-            <div id="bird"></div>
+        
+        <div class="home-page-wrapper">
+            <h1>Willkommen</h1>
+            <h5>Diese Webseite implementiert 3 Möglichkeiten den Spielklassiker "Flappy Bird" zu spielen.</h5>
+            <h5>Ziel ist es den Kreis durch die Löcher in den Hindernissen fliegen zu lassen. </h5>
+            <h5>Sobald ein Hindernis, der obere oder untere Rand des Spielfeldes berührt wurde, ist das Spiel vorbei.</h5>
         </div>
-    </div>
+        <div class="content-wrapper">
+            <p>Die 3 Möglichkeiten sind:</p>
+            <ol>
+                <li>
+                    <a href="src/flappyBird.html" class="btn tilt" role="button"></a>
+                    <p>
+                        In der mobilen Version den Kreis durch kippen des Mobilgerätes nach oben und unten steuern.
+                    </p>
+                </li>
+                <li>
+                    <a href="src/flappyBird.html" class="btn" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-mouse" viewBox="0 0 16 16">
+                        <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0v6zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5z"/>
+                        </svg>
+                    </a>
+                    <p>
+                        In der mobilen Version den Kreis durch pusten ins Mikrofon nach oben zu bewegen.
+                    </p>
+                </li>
+                <li>
+                    <a href="src/flappyBird.html" class="btn" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16">
+                        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
+                        </svg>
+                    </a>
+                    <p>
+                        In der Webversion den Kreis durch klicken auf den Bildschirm nach oben springen zu lassen.
+                    </p>
+                </li>
+            </ol>
+        </div>
+        <script src="src/scripts/flappyBird.js"></script>
     </body>
-    <script src="src/scripts/flappyBird.js"></script>
+
 </html>

@@ -3,18 +3,28 @@
     margin: 0;
 }
 
-#game{
-    width: 90%;
-    height: 800px;
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(221, 239, 250);
+}
+
+.game{ 
+    height: 600px;
+    width: 800px;
     background-color: lightskyblue;
-    border: 1px solid black;
-    margin: auto;
+    border-radius: 10px;
+    margin-top: 10px;
     overflow: hidden;
 }
 
-#pipe{
+.pipe{
     width: 100px;
-    height: 800px;
+    height: inherit;
     background-color: rgb(27, 187, 27);
     position: relative;
     left: 100%;
@@ -47,25 +57,14 @@
 
 }
 
-button{
-    width: 60px;
-    height: 60px;
-    background-size: cover;
-    background-color: lightskyblue;
-    position: relative;
-    top: 0px; 
-    border-radius: 100%;    
-} 
-
-button.tilt {
-    background-image: url(../images/tilt.png);
+.navbar-padding {
+    padding-left: 10px;
 }
 
-button.blow {
-    background-image: url(../images/wind.jpg);
-}
-
-
-.gameColor {
-    background-color: lightskyblue;
+.navbar-styling {
+    background-color: rgb(205, 231, 247);
+    border-radius: 10px;
+    box-shadow: lightblue;
+    margin-top: 10px;
+    width: 500px;
 }

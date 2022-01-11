@@ -1,43 +1,15 @@
-var pipe = document.getElementById("pipe");
+var pipe = document.getElementsByClassName("pipe");
 var hole = document.getElementById("hole");
+
+var game = document.getElementsByClassName("game")[0];
+var bird = document.getElementById("bird");
 var score = 0;
 
 hole.addEventListener('animationiteration', () => {
-    var random = -((Math.random() * 600) + 150);
+    var random = -((Math.random() * (300)) + 150); //todo height
     hole.style.top = random + "px";
     score++;
 });
-
-
-var vy = 0.0;
-var py = 50;
-var updateRate = 1 / 60;
-
-
-function deviceOrientationListener(event) {
-    frontToBack_degrees = event.beta;
-    vy = vy + frontToBack_degrees * updateRate;
-
-    py = py + vy * 0.1;
-    if (py > 70 || py < 0) {
-        py = Math.max(0, Math.min(70, py)); // Clip py between 0-98
-        vy = 0;
-    }
-
-    newPosY = frontToBack_degrees * 10;
-    if (newPosY > 100 || newPosY < -100) {
-        newPosY = Math.max(-100, Math.min(100, newPosY));
-    }
-
-    bird = document.getElementById("bird");
-    bird.style.top = calc(40% + 5 + "px" + newPosY + "px");
-    if (bird.top > 830 || bird.top <= 100) {
-      alert("G a m e  o v e r!  S c o r e: " + score);
-      bird.style.top = 300 + "px";
-      score = 0;
-    }
-
-}
 
 
 var isMobile = {
@@ -69,6 +41,46 @@ var isMobile = {
       );
     },
   };
+
+setInterval(function() {
+  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  if (jumping == 0) {
+    bird.style.top = (birdTop+3) + "px";
+  }
+  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  if (birdTop > 830) {
+    alert("G a m e  o v e r");
+    bird.style.top = 300 + "px";
+    score = 0;
+  }
+  //var pipeLeft = parseInt(window.getComputedStyle(pipe).getPropertyValue("left"));
+  var holeTop = parseInt(window.getComputedStyle(hole).getPropertyValue("top"));
+  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+},10)
+
+function clickJump() {
+  jumping = 1;
+  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  bird.style.top = (birdTop+5) + "px";
+  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  if (birdTop < 40) {
+    alert("G a m e  o v e r");
+    bird.style.top = 300 + "px";
+    score = 0;
+  }
+}
+
+function gameSize() {
+  document.querySelector('a').addEventListener('click', setGameSize)
+}
+
+function setGameSize() {
+  if (isMobile.any()) {
+    game.setAttribute("style", "height: 60vh;", "width: 90%;");
+  } else {
+    game.setAttribute("style", "height: 600px;", "width: 800px;");
+  }
+}
 
 function getAccel() {
     if (isMobile.iOS()) {
