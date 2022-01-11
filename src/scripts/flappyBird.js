@@ -1,9 +1,13 @@
 var pipe = document.getElementsByClassName("pipe");
 var hole = document.getElementById("hole");
 
-var game = document.getElementsByClassName("game")[0];
+var game = document.getElementsById("game");
+
 var bird = document.getElementById("bird");
 var score = 0;
+
+document.querySelector('a').addEventListener('click', setGameSize)
+
 
 hole.addEventListener('animationiteration', () => {
     var random = -((Math.random() * (300)) + 150); //todo height
@@ -70,17 +74,19 @@ function clickJump() {
   }
 }
 
-function gameSize() {
-  document.querySelector('a').addEventListener('click', setGameSize)
-}
 
 function setGameSize() {
+  var game = document.getElementById("game");
   if (isMobile.any()) {
-    game.setAttribute("style", "height: 60vh;", "width: 90%;");
+    game.style.width = 100 + "px"; 
+    game.style.height = 100 + "px";
   } else {
-    game.setAttribute("style", "height: 600px;", "width: 800px;");
+    game.style.width = 800 + "px";
+    game.style.height = 600 + "px";
   }
 }
+
+
 
 function getAccel() {
     if (isMobile.iOS()) {
