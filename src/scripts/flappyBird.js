@@ -40,13 +40,16 @@ var bird = document.getElementById("bird");
 var scoreText = document.getElementById("score");
 
 var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
+var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
 
 
 var tiltButton = document.getElementById("tilt");
-tiltButton.addEventListener('click', activateDeactivate, false);
+tiltButton.addEventListener('click', mobileVersion, false);
 var blowButton = document.getElementById("blow");
-blowButton.addEventListener('click', activateDeactivate, false);
-function activateDeactivate() {
+blowButton.addEventListener('click', mobileVersion, false);
+var clickButton = document.getElementById("click");
+clickButton.addEventListener('click', webVersion, false);
+function mobileVersion() {
   if (isMobile.any()) {
     this.href = "src/flappyBird.html";
     if (page == "index.html") {
@@ -57,6 +60,13 @@ function activateDeactivate() {
   } else {
     alert(switchToMobileMessage);
   } 
+}
+function webVersion() {
+  if (isMobile.any()) {
+    alert(switchToWebMessage);
+  } else {
+    this.href = "src/flappyBird.html";
+  }
 }
 
 
