@@ -88,7 +88,7 @@ body {
 
 @media (max-width: 1000px) {
     #game{ 
-        height: 1400px;
+        height: 1200px;
         width: 800px;
         margin-top: 100px;
  
@@ -101,7 +101,7 @@ body {
     }
 
     #score {
-        margin-top: 70px;
+        margin-top: 60px;
         font-size: 500%;
     }
 
@@ -137,11 +137,8 @@ body {
 
 }
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (max-width: 100px) {
 
 }
 
-@media (orientation: portrait) {
-
-}
 

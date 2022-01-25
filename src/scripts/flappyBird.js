@@ -48,6 +48,7 @@ var blowButton = document.getElementById("blow");
 blowButton.addEventListener('click', activateDeactivate, false);
 function activateDeactivate() {
   if (isMobile.any()) {
+    this.href = "src/flappyBird.html";
     if (page == "index.html") {
       this.href = "src/flappyBird.html";
     } else if (page == "flappyBird.html") {
