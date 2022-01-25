@@ -1,90 +1,155 @@
-var pipe = document.getElementsByClassName("pipe");
-var hole = document.getElementById("hole");
-
-var game = document.getElementsById("game");
-
-var bird = document.getElementById("bird");
-var score = 0;
-
-document.querySelector('a').addEventListener('click', setGameSize)
-
-
-hole.addEventListener('animationiteration', () => {
-    var random = -((Math.random() * (300)) + 150); //todo height
-    hole.style.top = random + "px";
-    score++;
-});
-
-
 var isMobile = {
-    Android: function () {
-      return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function () {
-      return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function () {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function () {
-      return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function () {
-      return (
-        navigator.userAgent.match(/IEMobile/i) ||
-        navigator.userAgent.match(/WPDesktop/i)
-      );
-    },
-    any: function () {
-      return (
-        isMobile.Android() ||
-        isMobile.BlackBerry() ||
-        isMobile.iOS() ||
-        isMobile.Opera() ||
-        isMobile.Windows()
-      );
-    },
-  };
+  Android: function () {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function () {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function () {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function () {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function () {
+    return (
+      navigator.userAgent.match(/IEMobile/i) ||
+      navigator.userAgent.match(/WPDesktop/i)
+    );
+  },
+  any: function () {
+    return (
+      isMobile.Android() ||
+      isMobile.BlackBerry() ||
+      isMobile.iOS() ||
+      isMobile.Opera() ||
+      isMobile.Windows()
+    );
+  },
+};
 
-setInterval(function() {
-  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  if (jumping == 0) {
-    bird.style.top = (birdTop+3) + "px";
+
+var path = window.location.pathname;
+var page = path.split("/").pop();
+console.log( page );
+
+var pipe = document.getElementById("pipe");
+var game = document.getElementById("game");
+var hole = document.getElementById("hole");
+var bird = document.getElementById("bird");
+var scoreText = document.getElementById("score");
+
+var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
+
+
+var tiltButton = document.getElementById("tilt");
+tiltButton.addEventListener('click', activateDeactivate, false);
+var blowButton = document.getElementById("blow");
+blowButton.addEventListener('click', activateDeactivate, false);
+function activateDeactivate() {
+  if (isMobile.any()) {
+    if (page == "index.html") {
+      this.href = "src/flappyBird.html";
+    } else if (page == "flappyBird.html") {
+      this.href = "flappyBird.html";
+    }
+  } else {
+    alert(switchToMobileMessage);
+  } 
+}
+
+
+var playButton = document.getElementById("play_button");
+playButton.addEventListener('click', hideshow, false);
+function hideshow() {
+  this.style.display = 'none';
+  startGame();
+}
+
+var score = 0;
+var jumping = 0;
+
+function startGame() {
+  pipe.style.animation = "pipe 3s infinite linear";
+  hole.style.animation = "pipe 3s infinite linear";
+  hole.addEventListener('animationiteration', () => {
+    var top = Math.random() * (parseInt(window.getComputedStyle(game).getPropertyValue("height")) - parseInt(window.getComputedStyle(hole).getPropertyValue("height")));
+    hole.style.top = top + "px";
+    score++;
+    scoreText.innerHTML = "score: " + score;
+  });
+  birdFalling();
+  birdJumping();
+  
+};
+
+function birdJumping() {
+  if (true) {
+    document.body.addEventListener('click', clickJump, true);
   }
-  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  if (birdTop > 830) {
-    alert("G a m e  o v e r");
-    bird.style.top = 300 + "px";
-    score = 0;
-  }
-  //var pipeLeft = parseInt(window.getComputedStyle(pipe).getPropertyValue("left"));
-  var holeTop = parseInt(window.getComputedStyle(hole).getPropertyValue("top"));
-  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-},10)
+}
 
 function clickJump() {
   jumping = 1;
+  let jump= 0;
+  var jumpInterval = setInterval(function() {
+    var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+      bird.style.top = (birdTop - 3) + "px";
+    
+    if (jump>20) {
+      clearInterval(jumpInterval);
+      jumping = 0;
+      jump = 0;
+    }
+    jump++;
+    checkGameOver(); 
+  }, 10);
+}
+
+function birdFalling() {
+  setInterval(function() {
+    var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+    if (jumping == 0) {
+      bird.style.top = (birdTop+2) + "px";
+    }
+    var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+    checkGameOver();
+  },10);
+}
+
+function checkGameOver() {
   var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  bird.style.top = (birdTop+5) + "px";
-  var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  if (birdTop < 40) {
+  var gameHeigt = parseInt(window.getComputedStyle(game).getPropertyValue("height"));
+  var birdHeight = parseInt(window.getComputedStyle(bird).getPropertyValue("height"));
+  var birdWidth = parseInt(window.getComputedStyle(bird).getPropertyValue("width"));
+  var holeTop = parseInt(window.getComputedStyle(hole).getPropertyValue("top"));
+  var holeLeft = parseInt(window.getComputedStyle(hole).getPropertyValue("left"));
+  var holeBottom = holeTop + parseInt(window.getComputedStyle(hole).getPropertyValue("height"));
+  var birdRight = parseInt(window.getComputedStyle(bird).getPropertyValue("left")) + birdWidth
+  if ((birdTop > (gameHeigt-birdHeight)) || (birdTop < 0) || ((holeLeft <= birdRight) && ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight)))) /*|| ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight)))*/) {
     alert("G a m e  o v e r");
     bird.style.top = 300 + "px";
-    score = 0;
+    pipe.style.left = 90 + "%";
+    hole.style.left = 90 + "%";
   }
 }
 
 
-function setGameSize() {
+
+
+
+
+
+/*function setGameSize() {
   var game = document.getElementById("game");
   if (isMobile.any()) {
     game.style.width = 100 + "px"; 
-    game.style.height = 100 + "px";
+    game.style.height = 500 + "px";
   } else {
     game.style.width = 800 + "px";
     game.style.height = 600 + "px";
   }
-}
+}*/
 
 
 

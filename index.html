@@ -8,38 +8,41 @@
     <body>
         
         <div class="home-page-wrapper">
-            <h1>Willkommen</h1>
-            <h5>Diese Webseite implementiert 3 Möglichkeiten den Spielklassiker "Flappy Bird" zu spielen.</h5>
-            <h5>Ziel ist es den Kreis durch die Löcher in den Hindernissen fliegen zu lassen. </h5>
-            <h5>Sobald ein Hindernis, der obere oder untere Rand des Spielfeldes berührt wurde, ist das Spiel vorbei.</h5>
+            <div class="content-wrapper">
+                <h1>Flappy Bird</h1>
+                <h5>Diese Webseite implementiert 3 Möglichkeiten den Spielklassiker "Flappy Bird" zu spielen.</h5>
+                <h5>Ziel ist es den Kreis durch die Löcher in den Hindernissen fliegen zu lassen. </h5>
+                <h5>Sobald ein Hindernis, der obere oder untere Rand des Spielfeldes berührt wurde, ist das Spiel vorbei.</h5>
+            </div>
+            
         </div>
         <div class="content-wrapper">
-            <p>Die 3 Möglichkeiten sind:</p>
+            <p class="p1">Die 3 Möglichkeiten sind:</p>
             <ol>
                 <li>
-                    <a href="src/flappyBird.html" class="btn tilt" role="button"></a>
                     <p>
-                        In der mobilen Version den Kreis durch kippen des Mobilgerätes nach oben und unten steuern.
+                        <a href="#" class="btn tilt" role="button" id="tilt"></a>
+                        In der mobilen Version den Kreis durch kippen des Mobilgerätes nach oben und unten zu steuern.
                     </p>
                 </li>
                 <li>
-                    <a href="src/flappyBird.html" class="btn" role="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-mouse" viewBox="0 0 16 16">
-                        <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0v6zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5z"/>
-                        </svg>
-                    </a>
                     <p>
+                        <a href="#" class="btn" role="button" id="blow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-mic" viewBox="2.5 0 16 16">
+                            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
+                            </svg>
+                        </a>
                         In der mobilen Version den Kreis durch pusten ins Mikrofon nach oben zu bewegen.
                     </p>
                 </li>
                 <li>
-                    <a href="src/flappyBird.html" class="btn" role="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16">
-                        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
-                        <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
-                        </svg>
-                    </a>
                     <p>
+                        <a href="src/flappyBird.html" class="btn" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-mouse" viewBox="2.5 0 16 16">
+                            <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0v6zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5z"/>
+                            </svg>
+                        </a>
                         In der Webversion den Kreis durch klicken auf den Bildschirm nach oben springen zu lassen.
                     </p>
                 </li>
