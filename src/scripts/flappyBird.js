@@ -84,15 +84,15 @@ var version = "click";
   
   function mobileVersion() {
     if (isMobile.any()) {
-      if (page == "flappyBird.html") {
-        this.href = "flappyBird.html";
-      } else {
-        this.href = "src/flappyBird.html";
-      }
       if (this == tiltButton) {
         version = "tilt";
       } else {
         version = "blow";
+      }
+      if (page == "flappyBird.html") {
+        this.href = "flappyBird.html";
+      } else {
+        this.href = "src/flappyBird.html";
       }
     } else {
       alert(switchToMobileMessage);
@@ -102,8 +102,8 @@ var version = "click";
   function webVersion() {
     console.log(isMobile.any());
     if (isMobile.any() == null) {
-      this.href = "flappyBird.html";
       version = "click";
+      this.href = "flappyBird.html";
     } else if (isMobile.any()) {
       alert(switchToWebMessage);
     } 
