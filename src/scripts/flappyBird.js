@@ -28,7 +28,6 @@ var isMobile = {
   },
 };
 
-var average = -1;
 
 function listenToMicrophone() {
   navigator.mediaDevices
@@ -51,7 +50,10 @@ function listenToMicrophone() {
         const array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(array);
         const arraySum = array.reduce((a, value) => a + value, 0);
-        average = arraySum / array.length;
+        const average = arraySum / array.length;
+        if (Math.round(average) > 30) {
+          jump();
+        }
       };
     })
     .catch(function (err) {
@@ -87,7 +89,7 @@ var mode = "blow";
         mode = "tilt";
       } else {
         mode = "blow";
-        listenToMicrophone();
+        //listenToMicrophone();
       }
       if (page == "flappyBird.html") {
         this.href = "flappyBird.html";
@@ -145,9 +147,7 @@ function birdJumping() {
   if (mode == "click") {
     document.body.addEventListener('click', jump, true);
   } else if (mode == "blow") {
-    if (Math.round(average) > 30) {
-      jump();
-    }
+    listenToMicrophone();
   } 
 }
 
