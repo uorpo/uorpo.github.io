@@ -28,6 +28,38 @@ var isMobile = {
   },
 };
 
+function listenToMicrophone() {
+  navigator.mediaDevices
+    .getUserMedia({
+      audio: true,
+    })
+    .then(function (stream) {
+      const audioContext = new AudioContext();
+      const analyser = audioContext.createAnalyser();
+      const microphone = audioContext.createMediaStreamSource(stream);
+      const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+
+      analyser.smoothingTimeConstant = 0.8;
+      analyser.fftSize = 1024;
+
+      microphone.connect(analyser);
+      analyser.connect(scriptProcessor);
+      scriptProcessor.connect(audioContext.destination);
+      scriptProcessor.onaudioprocess = function () {
+        const array = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(array);
+        const arraySum = array.reduce((a, value) => a + value, 0);
+        const average = arraySum / array.length;
+        if (Math.round(average) > 30) {
+          jump();
+        }
+      };
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+}
+
 var path = window.location.pathname;
 var page = path.split("/").pop();
 
@@ -40,6 +72,7 @@ var scoreText = document.getElementById("score");
 var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
 var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
 
+var version = "click";
 
   var tiltButton = document.getElementById("tilt");
   tiltButton.addEventListener('click', mobileVersion, false);
@@ -54,6 +87,11 @@ var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version
   function mobileVersion() {
     if (isMobile.any()) {
       this.href = "src/flappyBird.html";
+      if (this == tiltButton) {
+        version = "tilt";
+      } else {
+        version = "blow";
+      }
     } else {
       alert(switchToMobileMessage);
     } 
@@ -63,6 +101,7 @@ var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version
     console.log(isMobile.any());
     if (isMobile.any() == null) {
       this.href = "src/flappyBird.html";
+      version = "click";
     } else if (isMobile.any()) {
       alert(switchToWebMessage);
     } 
@@ -99,12 +138,14 @@ function startGame() {
 };
 
 function birdJumping() {
-  if (true) {
-    document.body.addEventListener('click', clickJump, true);
-  }
+  if (version = "click") {
+    document.body.addEventListener('click', jump, true);
+  } else if (version = "blow") {
+    listenToMicrophone();
+  } 
 }
 
-function clickJump() {
+function jump() {
   jumping = 1;
   let jump= 0;
   var jumpInterval = setInterval(function() {
@@ -122,6 +163,7 @@ function clickJump() {
 }
 
 function birdFalling() {
+  if (version == "tilt") {return;}
   setInterval(function() {
     var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     if (jumping == 0) {
