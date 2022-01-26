@@ -28,6 +28,8 @@ var isMobile = {
   },
 };
 
+const average = -1;
+
 function listenToMicrophone() {
   navigator.mediaDevices
     .getUserMedia({
@@ -50,9 +52,6 @@ function listenToMicrophone() {
         analyser.getByteFrequencyData(array);
         const arraySum = array.reduce((a, value) => a + value, 0);
         const average = arraySum / array.length;
-        if (Math.round(average) > 30) {
-          jump();
-        }
       };
     })
     .catch(function (err) {
@@ -135,7 +134,12 @@ function startGame() {
   });
   pipe.style.animation = "pipe 3s infinite linear";
   hole.style.animation = "pipe 3s infinite linear";
-  birdFalling();
+  if (version != "tilt") {
+    birdFalling();
+  }
+  if (version == "blow") {
+    listenToMicrophone();
+  }
   birdJumping();
 };
 
@@ -143,7 +147,9 @@ function birdJumping() {
   if (version == "click") {
     document.body.addEventListener('click', jump, true);
   } else if (version == "blow") {
-    listenToMicrophone();
+    if (Math.round(average) > 30) {
+      jump();
+    }
   } 
 }
 
