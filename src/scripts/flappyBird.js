@@ -72,7 +72,7 @@ var scoreText = document.getElementById("score");
 var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
 var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
 
-var version = "click";
+var version = "blow";
 
   var tiltButton = document.getElementById("tilt");
   tiltButton.addEventListener('click', mobileVersion, false);
