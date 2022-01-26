@@ -51,7 +51,7 @@ function listenToMicrophone() {
         const array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(array);
         const arraySum = array.reduce((a, value) => a + value, 0);
-        const average = arraySum / array.length;
+        average = arraySum / array.length;
       };
     })
     .catch(function (err) {
