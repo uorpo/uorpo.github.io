@@ -87,6 +87,7 @@ var version = "blow";
         version = "tilt";
       } else {
         version = "blow";
+        listenToMicrophone();
       }
       if (page == "flappyBird.html") {
         this.href = "flappyBird.html";
@@ -137,9 +138,7 @@ function startGame() {
   if (version != "tilt") {
     birdFalling();
   }
-  if (version == "blow") {
-    listenToMicrophone();
-  }
+  
   birdJumping();
 };
 
