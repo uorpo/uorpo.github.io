@@ -86,7 +86,7 @@ var version = "click";
   
   function mobileVersion() {
     if (isMobile.any()) {
-      this.href = "src/flappyBird.html";
+      this.href = "flappyBird.html";
       if (this == tiltButton) {
         version = "tilt";
       } else {
