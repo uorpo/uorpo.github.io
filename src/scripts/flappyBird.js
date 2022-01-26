@@ -140,9 +140,9 @@ function startGame() {
 };
 
 function birdJumping() {
-  if (version = "click") {
+  if (version == "click") {
     document.body.addEventListener('click', jump, true);
-  } else if (version = "blow") {
+  } else if (version == "blow") {
     listenToMicrophone();
   } 
 }
