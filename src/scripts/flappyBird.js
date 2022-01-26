@@ -28,7 +28,7 @@ var isMobile = {
   },
 };
 
-const average = -1;
+var average = -1;
 
 function listenToMicrophone() {
   navigator.mediaDevices
@@ -71,7 +71,7 @@ var scoreText = document.getElementById("score");
 var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
 var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
 
-var version = "blow";
+var mode = "blow";
 
   var tiltButton = document.getElementById("tilt");
   tiltButton.addEventListener('click', mobileVersion, false);
@@ -84,9 +84,9 @@ var version = "blow";
   function mobileVersion() {
     if (isMobile.any()) {
       if (this == tiltButton) {
-        version = "tilt";
+        mode = "tilt";
       } else {
-        version = "blow";
+        mode = "blow";
         listenToMicrophone();
       }
       if (page == "flappyBird.html") {
@@ -102,7 +102,7 @@ var version = "blow";
   function webVersion() {
     console.log(isMobile.any());
     if (isMobile.any() == null) {
-      version = "click";
+      mode = "click";
       this.href = "flappyBird.html";
     } else if (isMobile.any()) {
       alert(switchToWebMessage);
@@ -135,17 +135,16 @@ function startGame() {
   });
   pipe.style.animation = "pipe 3s infinite linear";
   hole.style.animation = "pipe 3s infinite linear";
-  if (version != "tilt") {
+  if (mode != "tilt") {
     birdFalling();
   }
-  
   birdJumping();
 };
 
 function birdJumping() {
-  if (version == "click") {
+  if (mode == "click") {
     document.body.addEventListener('click', jump, true);
-  } else if (version == "blow") {
+  } else if (mode == "blow") {
     if (Math.round(average) > 30) {
       jump();
     }
@@ -170,7 +169,7 @@ function jump() {
 }
 
 function birdFalling() {
-  if (version == "tilt") {return;}
+  if (mode == "tilt") {return;}
   setInterval(function() {
     var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     if (jumping == 0) {
