@@ -78,15 +78,17 @@ var version = "click";
   tiltButton.addEventListener('click', mobileVersion, false);
   var blowButton = document.getElementById("blow");
   blowButton.addEventListener('click', mobileVersion, false);
-
-  if (page != "flappyBird.html") {
-    var clickButton = document.getElementById("click");
-    clickButton.addEventListener('click', webVersion, false);
-  }
+  var clickButton = document.getElementById("click");
+  clickButton.addEventListener('click', webVersion, false);
+  
   
   function mobileVersion() {
     if (isMobile.any()) {
-      this.href = "flappyBird.html";
+      if (page == "flappyBird.html") {
+        this.href = "flappyBird.html";
+      } else {
+        this.href = "src/flappyBird.html";
+      }
       if (this == tiltButton) {
         version = "tilt";
       } else {
@@ -100,7 +102,7 @@ var version = "click";
   function webVersion() {
     console.log(isMobile.any());
     if (isMobile.any() == null) {
-      this.href = "src/flappyBird.html";
+      this.href = "flappyBird.html";
       version = "click";
     } else if (isMobile.any()) {
       alert(switchToWebMessage);
