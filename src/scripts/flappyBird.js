@@ -96,7 +96,6 @@ function startGame() {
   hole.style.animation = "pipe 3s infinite linear";
   birdFalling();
   birdJumping();
-  
 };
 
 function birdJumping() {

@@ -55,3 +55,12 @@ a{
 a.tilt {
     background-image: url(../images/tilt.png);
 }
+
+
+@media (max-width: 1000px) {
+
+    .content-wrapper {
+        width: 900px;
+    }
+
+}
