@@ -63,4 +63,26 @@ a.tilt {
         width: 900px;
     }
 
+    h1 {
+        font-size: xx-large;
+        font-weight: bold;
+    }
+
+    h5 {
+        font-size: x-large;
+    }
+
+    .p1 {
+        font-size: xx-large;
+    }
+    
+    p {
+        font-size: x-large;
+    }
+    
+    li {
+        font-size: x-large;
+        margin-bottom: 50px;
+    }
+
 }
