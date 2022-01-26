@@ -28,10 +28,8 @@ var isMobile = {
   },
 };
 
-
 var path = window.location.pathname;
 var page = path.split("/").pop();
-console.log( page );
 
 var pipe = document.getElementById("pipe");
 var game = document.getElementById("game");
@@ -43,52 +41,59 @@ var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese 
 var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
 
 
-var tiltButton = document.getElementById("tilt");
-tiltButton.addEventListener('click', mobileVersion, false);
-var blowButton = document.getElementById("blow");
-blowButton.addEventListener('click', mobileVersion, false);
-var clickButton = document.getElementById("click");
-clickButton.addEventListener('click', webVersion, false);
-function mobileVersion() {
-  if (isMobile.any()) {
-    this.href = "src/flappyBird.html";
-    if (page == "index.html") {
+  var tiltButton = document.getElementById("tilt");
+  tiltButton.addEventListener('click', mobileVersion, false);
+  var blowButton = document.getElementById("blow");
+  blowButton.addEventListener('click', mobileVersion, false);
+
+  if (page != "flappyBird.html") {
+    var clickButton = document.getElementById("click");
+    clickButton.addEventListener('click', webVersion, false);
+  }
+  
+  function mobileVersion() {
+    if (isMobile.any()) {
       this.href = "src/flappyBird.html";
-    } else if (page == "flappyBird.html") {
-      this.href = "flappyBird.html";
-    }
-  } else {
-    alert(switchToMobileMessage);
-  } 
-}
-function webVersion() {
-  if (isMobile.any()) {
-    alert(switchToWebMessage);
-  } else {
-    this.href = "src/flappyBird.html";
+    } else {
+      alert(switchToMobileMessage);
+    } 
+  }
+
+  function webVersion() {
+    console.log(isMobile.any());
+    if (isMobile.any() == null) {
+      this.href = "src/flappyBird.html";
+    } else if (isMobile.any()) {
+      alert(switchToWebMessage);
+    } 
+  }
+
+
+
+
+
+if (page == "flappyBird.html") {
+  var playButton = document.getElementById("play_button");
+  playButton.addEventListener('click', hideshow, false);
+  function hideshow() {
+    this.style.display = 'none';
   }
 }
 
 
-var playButton = document.getElementById("play_button");
-playButton.addEventListener('click', hideshow, false);
-function hideshow() {
-  this.style.display = 'none';
-  startGame();
-}
 
 var score = 0;
 var jumping = 0;
 
 function startGame() {
-  pipe.style.animation = "pipe 3s infinite linear";
-  hole.style.animation = "pipe 3s infinite linear";
   hole.addEventListener('animationiteration', () => {
     var top = Math.random() * (parseInt(window.getComputedStyle(game).getPropertyValue("height")) - parseInt(window.getComputedStyle(hole).getPropertyValue("height")));
     hole.style.top = top + "px";
     score++;
     scoreText.innerHTML = "score: " + score;
   });
+  pipe.style.animation = "pipe 3s infinite linear";
+  hole.style.animation = "pipe 3s infinite linear";
   birdFalling();
   birdJumping();
   
@@ -137,32 +142,13 @@ function checkGameOver() {
   var holeLeft = parseInt(window.getComputedStyle(hole).getPropertyValue("left"));
   var holeBottom = holeTop + parseInt(window.getComputedStyle(hole).getPropertyValue("height"));
   var birdRight = parseInt(window.getComputedStyle(bird).getPropertyValue("left")) + birdWidth
-  if ((birdTop > (gameHeigt-birdHeight)) || (birdTop < 0) || ((holeLeft <= birdRight) && ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight)))) /*|| ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight)))*/) {
+  if ((birdTop > (gameHeigt-birdHeight)) || (birdTop < 0) 
+         || ((holeLeft <= birdRight) && ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight))))) {
     alert("G a m e  o v e r");
-    bird.style.top = 300 + "px";
-    pipe.style.left = 90 + "%";
-    hole.style.left = 90 + "%";
+    score = 0;
+    window.location.reload();
   }
 }
-
-
-
-
-
-
-
-/*function setGameSize() {
-  var game = document.getElementById("game");
-  if (isMobile.any()) {
-    game.style.width = 100 + "px"; 
-    game.style.height = 500 + "px";
-  } else {
-    game.style.width = 800 + "px";
-    game.style.height = 600 + "px";
-  }
-}*/
-
-
 
 function getAccel() {
     if (isMobile.iOS()) {

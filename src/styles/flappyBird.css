@@ -14,7 +14,7 @@ body {
 }
 
 #game{ 
-    height: 600px;
+    height: 525px;
     width: 800px;
     background-color: lightskyblue;
     border-radius: 10px;
@@ -43,7 +43,7 @@ body {
     background-color: lightskyblue;
     position: absolute;
     left: 90%;
-    top: 450px;
+    top: 200px;
 }
 
 #bird{
@@ -56,11 +56,6 @@ body {
     left: 10px;
     border-radius: 50%;
 
-}
-
-
-.navbar-padding {
-    padding-left: 10px;
 }
 
 .navbar-styling {
@@ -137,8 +132,5 @@ body {
 
 }
 
-@media (orientation: landscape) and (max-width: 100px) {
-
-}
 
 
