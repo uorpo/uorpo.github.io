@@ -28,9 +28,7 @@ var isMobile = {
   },
 };
 
-var array;
-var arraySum;
-var average = -1;
+
 
 function listenToMicrophone() {
   navigator.mediaDevices
@@ -50,10 +48,13 @@ function listenToMicrophone() {
       analyser.connect(scriptProcessor);
       scriptProcessor.connect(audioContext.destination);
       scriptProcessor.onaudioprocess = function () {
-        array = new Uint8Array(analyser.frequencyBinCount);
+        const array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(array);
-        arraySum = array.reduce((a, value) => a + value, 0);
-        average = arraySum / array.length;
+        const arraySum = array.reduce((a, value) => a + value, 0);
+        const average = arraySum / array.length;
+        if ((Math.round(average) > 30) &&  playing) {
+          jump();
+        }
       };
     })
     .catch(function (err) {
@@ -73,68 +74,75 @@ var scoreText = document.getElementById("score");
 var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
 var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
 
-var mode = "blow";
+var mode = null;
 
-  var tiltButton = document.getElementById("tilt");
-  tiltButton.addEventListener('click', mobileVersion, false);
-  var blowButton = document.getElementById("blow");
-  blowButton.addEventListener('click', mobileVersion, false);
-  var clickButton = document.getElementById("click");
-  clickButton.addEventListener('click', webVersion, false);
-  
-  
-  function mobileVersion() {
-    if (isMobile.any()) {
-      if (this == tiltButton) {
-        mode = "tilt";
-      } else {
-        mode = "blow";
-        listenToMicrophone();
-      }
-      if (page == "flappyBird.html") {
-        this.href = "flappyBird.html";
-      } else {
-        this.href = "src/flappyBird.html";
-      }
+var tiltButton = document.getElementById("tilt");
+tiltButton.addEventListener('click', mobile_version, false);
+var blowButton = document.getElementById("blow");
+blowButton.addEventListener('click', mobile_version, false);
+var clickButton = document.getElementById("click");
+clickButton.addEventListener('click', web_version, false);
+
+
+function mobile_version() {
+  if (isMobile.any()) {
+    if (this == tiltButton) {
+      mode = "tilt";
     } else {
-      alert(switchToMobileMessage);
-    } 
-  }
+      mode = "blow";
+      listenToMicrophone();
+    }
+    playButton.classList.add("play-allowed");
+    playButton.classList.remove("play-not-allowed");
+  } else {
+    alert(switchToMobileMessage);
+  } 
+}
 
-  function webVersion() {
-    console.log(isMobile.any());
-    if (isMobile.any() == null) {
-      mode = "click";
-      this.href = "flappyBird.html";
-    } else if (isMobile.any()) {
-      alert(switchToWebMessage);
-    } 
-  }
-
-
-
-
-
-if (page == "flappyBird.html") {
-  var playButton = document.getElementById("play_button");
-  playButton.addEventListener('click', hideshow, false);
-  function hideshow() {
-    this.style.display = 'none';
-  }
+function web_version() {
+  console.log("hhh");
+  if (isMobile.any() == null) {
+    mode = "click";
+    playButton.classList.add("play-allowed");
+    playButton.classList.remove("play-not-allowed");
+  } else if (isMobile.any()) {
+    alert(switchToWebMessage);
+  } 
 }
 
 
 
+
+var playButton = document.getElementById("play_button");
+playButton.addEventListener('click', hideshow, false);
+playButton.classList.add("play-not-allowed");
+
+function hideshow() {
+  if (mode != null) {
+    playButton.style.display = 'none';
+  } 
+}
+
+
+function holeEventListener() {
+  var top = Math.random() * (parseInt(window.getComputedStyle(game).getPropertyValue("height")) - parseInt(window.getComputedStyle(hole).getPropertyValue("height")));
+    hole.style.top = top + "px";
+    score++;
+    scoreText.innerHTML = "score: " + score;
+}
+
+
+var playing = false;
 var score = 0;
 var jumping = 0;
 
 function startGame() {
-  hole.addEventListener('animationiteration', () => {
-    var top = Math.random() * (parseInt(window.getComputedStyle(game).getPropertyValue("height")) - parseInt(window.getComputedStyle(hole).getPropertyValue("height")));
-    hole.style.top = top + "px";
-    score++;
-    scoreText.innerHTML = "score: " + score;
-  });
+  console.log(mode);
+  if (mode == null) {
+    return;
+  }
+  playing = true;
+  hole.addEventListener('animationiteration', holeEventListener);
   pipe.style.animation = "pipe 3s infinite linear";
   hole.style.animation = "pipe 3s infinite linear";
   if (mode != "tilt") {
@@ -144,16 +152,18 @@ function startGame() {
 };
 
 function birdJumping() {
+  console.log(mode);
   if (mode == "click") {
     document.body.addEventListener('click', jump, true);
   } else if (mode == "blow") {
-    if (Math.round(average) > 30) {
-      jump();
-    }
+    
   } 
 }
 
 function jump() {
+  if (!playing) {
+    return;
+  }
   jumping = 1;
   let jump= 0;
   var jumpInterval = setInterval(function() {
@@ -171,8 +181,8 @@ function jump() {
 }
 
 function birdFalling() {
-  if (mode == "tilt") {return;}
-  setInterval(function() {
+  if (mode == "tilt" || mode == null)  {return;}
+  birdFallingInterval = setInterval(function() {
     var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     if (jumping == 0) {
       bird.style.top = (birdTop+2) + "px";
@@ -193,9 +203,18 @@ function checkGameOver() {
   var birdRight = parseInt(window.getComputedStyle(bird).getPropertyValue("left")) + birdWidth
   if ((birdTop > (gameHeigt-birdHeight)) || (birdTop < 0) 
          || ((holeLeft <= birdRight) && ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight))))) {
-    alert("G a m e  o v e r");
-    score = 0;
-    window.location.reload();
+          //  mode = null;
+           playButton.style.display = "block";
+           hole.removeEventListener('animationiteration', holeEventListener);
+           pipe.style.animation = "";
+           hole.style.animation = "";
+           clearInterval(birdFallingInterval);
+           score = 0;
+           scoreText.innerHTML = "score: " + score;
+           bird.style.top = 200 + "px";
+           playing = false;
+           alert("G a m e  o v e r");
+    //window.location.reload();
   }
 }
 

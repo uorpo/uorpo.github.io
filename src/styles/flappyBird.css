@@ -74,6 +74,20 @@ body {
     z-index: 2;
 }
 
+.play-not-allowed {
+    color: gray;
+    cursor:default;
+}
+
+.play-allowed {
+    color: black;
+    cursor: pointer;
+}
+
+.play-not-allowed:hover {
+    color: gray;
+}
+
 #score {
     margin-top: 10px;
     font-size: xx-large;
