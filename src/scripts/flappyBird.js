@@ -215,6 +215,7 @@ function checkGameOver() {
     //window.location.reload();
   }
 }
+var jumped = false;
 
 function deviceOrientationListener(event) {
   // Expose each orientation angle in a more readable way
@@ -222,14 +223,13 @@ function deviceOrientationListener(event) {
   frontToBack_degrees = event.beta;
   leftToRight_degrees = event.gamma;
 
- 
-  var interval;
   if (frontToBack_degrees < -5) {
-    interval = setInterval(() => {
+    if (!jumped) {
       jump();
-    }, 10);
+    }
+    jumped = true;
   } else {
-    clearInterval(interval);
+    jumped = false;
   }
 
   // // Update velocity according to how tilted the phone is
