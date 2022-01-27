@@ -225,7 +225,7 @@ function deviceOrientationListener(event) {
   if (frontToBack_degrees < 10) {
     setInterval(() => {
       jump();
-    }, 0.5);
+    }, 10);
   }
 
   // // Update velocity according to how tilted the phone is
