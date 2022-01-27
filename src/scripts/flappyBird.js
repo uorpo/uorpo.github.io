@@ -223,6 +223,7 @@ function deviceOrientationListener(event) {
   leftToRight_degrees = event.gamma;
 
   if (frontToBack_degrees < 10) {
+    alert("JUMP! " + frontToBack_degrees);
     setInterval(() => {
       jump();
     }, 10);
