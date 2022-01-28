@@ -62,6 +62,7 @@ function listenToMicrophone() {
     });
 }
 
+var birdFallingSpeed = -1;
 var path = window.location.pathname;
 var page = path.split("/").pop();
 
@@ -93,6 +94,8 @@ function mobile_version() {
       mode = "blow";
       listenToMicrophone();
     }
+    hole.style.height = 200 + "px";
+    birdFallingSpeed = 4;
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");
   } else {
@@ -105,6 +108,8 @@ function web_version() {
     mode = "click";
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");
+    birdFallingSpeed = 2;
+    hole.style.height = 170 + "px";
   } else if (isMobile.any()) {
     alert(switchToWebMessage);
   } 
@@ -183,7 +188,7 @@ function birdFalling() {
   birdFallingInterval = setInterval(function() {
     var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     if (jumping == 0) {
-      bird.style.top = (birdTop+2) + "px";
+      bird.style.top = (birdTop+ birdFallingSpeed) + "px";
     }
     var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     checkGameOver();
@@ -201,24 +206,21 @@ function checkGameOver() {
   var birdRight = parseInt(window.getComputedStyle(bird).getPropertyValue("left")) + birdWidth
   if ((birdTop > (gameHeigt-birdHeight)) || (birdTop < 0) 
          || ((holeLeft <= birdRight) && ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight))))) {
-          //  mode = null;
-           playButton.style.display = "block";
-           hole.removeEventListener('animationiteration', holeEventListener);
-           pipe.style.animation = "";
-           hole.style.animation = "";
-           clearInterval(birdFallingInterval);
-           score = 0;
-           scoreText.innerHTML = "score: " + score;
-           bird.style.top = 200 + "px";
-           playing = false;
-           alert("G a m e  o v e r");
-    //window.location.reload();
+    playButton.style.display = "block";
+    hole.removeEventListener('animationiteration', holeEventListener);
+    pipe.style.animation = "";
+    hole.style.animation = "";
+    clearInterval(birdFallingInterval);
+    score = 0;
+    scoreText.innerHTML = "score: " + score;
+    bird.style.top = 200 + "px";
+    playing = false;
+    alert("G a m e  o v e r");
   }
 }
 var jumped = false;
 
 function deviceOrientationListener(event) {
-  // Expose each orientation angle in a more readable way
   rotation_degrees = event.alpha;
   frontToBack_degrees = event.beta;
   leftToRight_degrees = event.gamma;
@@ -230,67 +232,6 @@ function deviceOrientationListener(event) {
     jumped = true;
   } else {
     jumped = false;
-  }
-
-  // // Update velocity according to how tilted the phone is
-  // // Since phones are narrower than they are long, double the increase to the x velocity
-  // vx = vx + leftToRight_degrees * updateRate * 2;
-  // vy = vy + frontToBack_degrees * updateRate;
-
-  // // Update position and clip it to bounds
-  // px = px + vx * 0.1;
-  // if (px > 50 || px < 0) {
-  //   px = Math.max(0, Math.min(50, px)); // Clip px between 0-98
-  //   vx = 0;
-  // }
-
-  // py = py + vy * 0.1;
-  // if (py > 70 || py < 0) {
-  //   py = Math.max(0, Math.min(70, py)); // Clip py between 0-98
-  //   vy = 0;
-  // }
-
-  // newPosY = frontToBack_degrees * 10;
-  // if (newPosY > 100 || newPosY < -100) {
-  //   newPosY = Math.max(-100, Math.min(100, newPosY));
-  // }
-  // newPosX = leftToRight_degrees * 10;
-  // if (newPosX > 100 || newPosX < -100) {
-  //   newPosX = Math.max(-100, Math.min(100, newPosX));
-  // }
-
-  // dot = document.getElementsByClassName("indicatorDot")[0];
-  // dot.setAttribute(
-  //   "style",
-  //   "left: calc(50% - 120px + " +
-  //     newPosX +
-  //     "px);" +
-  //     "top: calc(40% + 5px + " +
-  //     newPosY +
-  //     "px);"
-  // );
-  // center = document.getElementById("scaleCenter");
-  // var rect = center.getBoundingClientRect();
-  // var dotPos = dot.getBoundingClientRect();
-
-  if (
-    Math.abs(rect.top - dotPos.top) < SCALE_TOLERANCE &&
-    Math.abs(rect.right - dotPos.right) < SCALE_TOLERANCE &&
-    Math.abs(rect.bottom - dotPos.bottom) < SCALE_TOLERANCE &&
-    Math.abs(rect.left - dotPos.left) < SCALE_TOLERANCE
-  ) {
-    dot.setAttribute(
-      "style",
-      "left: calc(50% - 120px + " +
-        newPosX +
-        "px);" +
-        "top: calc(40% + 5px + " +
-        newPosY +
-        "px); background-color: green;"
-    );
-    // alert(
-    //   `Center: ${rect.top}, ${rect.right}, ${rect.bottom}, ${rect.left} \n Dot: ${dotPos.top}, ${dotPos.right}, ${dotPos.bottom}, ${dotPos.left}`
-    // );
   }
 }
 
