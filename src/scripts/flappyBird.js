@@ -221,11 +221,19 @@ function checkGameOver() {
 var jumped = false;
 
 function deviceOrientationListener(event) {
-  rotation_degrees = event.alpha;
   frontToBack_degrees = event.beta;
   leftToRight_degrees = event.gamma;
 
-  if (frontToBack_degrees < -5) {
+
+  var directionDegree; 
+
+  if (window.matchMedia("(orientation: portrait)").matches) {
+    directionDegree = frontToBack_degrees; 
+  } else if (window.matchMedia("(orientation: landscape)").matches) {
+    directionDegree = leftToRight_degrees;
+  }
+
+  if (directionDegree < -5) {
     if (!jumped) {
       jump();
     }
@@ -233,6 +241,7 @@ function deviceOrientationListener(event) {
   } else {
     jumped = false;
   }
+
 }
 
 function getAccel() {
