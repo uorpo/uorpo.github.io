@@ -94,7 +94,7 @@ function mobile_version() {
       mode = "blow";
       listenToMicrophone();
     }
-    hole.style.height = 200 + "px";
+    hole.style.height = 300 + "px";
     birdFallingSpeed = 4;
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");

@@ -59,6 +59,10 @@ a.tilt {
     background-image: url(../images/tilt.png);
 }
 
+a.tilt:hover {
+    cursor: default;
+}
+
 svg {
     margin-left: 10px;
     margin-right: 5px;
