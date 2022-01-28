@@ -87,6 +87,8 @@ clickButton.addEventListener('click', web_version, false);
 
 function mobile_version() {
   if (isMobile.any()) {
+    hole.style.height = 350 + "px";
+    birdFallingSpeed = 4;
     if (this == tiltButton) {
       mode = "tilt";
       getAccel();
@@ -94,8 +96,6 @@ function mobile_version() {
       mode = "blow";
       listenToMicrophone();
     }
-    hole.style.height = 300 + "px";
-    birdFallingSpeed = 4;
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");
   } else {

@@ -95,6 +95,7 @@ body {
     z-index: 3;
 }
 
+
 @media (max-width: 1000px) {
     #game{ 
         height: 1200px;
@@ -142,9 +143,10 @@ body {
     #pipe {
         width: 150px;
     }
-
-
 }
 
+@media (orientation: landscape) {
+
+}
 
 
