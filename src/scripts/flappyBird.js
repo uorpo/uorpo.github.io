@@ -227,10 +227,9 @@ function resetGame() {
   playing = false;
 }
 
-
+var jumpedTilt = false;
 
 function deviceOrientationListener(event) {
-  var jumped = false;
   frontToBack_degrees = event.beta;
   leftToRight_degrees = event.gamma;
 
@@ -244,12 +243,12 @@ function deviceOrientationListener(event) {
   }
 
   if (directionDegree < -3) {
-    if (!jumped) {
+    if (!jumpedTilt) {
       jump();
     }
-    jumped = true;
+    jumpedTilt = true;
   } else {
-    jumped = false;
+    jumpedTilt = false;
   }
 
 }
