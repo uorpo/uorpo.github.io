@@ -243,7 +243,7 @@ function deviceOrientationListener(event) {
     directionDegree = leftToRight_degrees;
   }
 
-  if (directionDegree < 0) {
+  if (directionDegree < -3) {
     if (!jumped) {
       jump();
     }
