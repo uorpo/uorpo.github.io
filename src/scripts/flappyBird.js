@@ -31,6 +31,7 @@ var isMobile = {
 
 
 function listenToMicrophone() {
+  var jumped = false;
   navigator.mediaDevices
     .getUserMedia({
       audio: true,
@@ -53,7 +54,12 @@ function listenToMicrophone() {
         const arraySum = array.reduce((a, value) => a + value, 0);
         const average = arraySum / array.length;
         if ((Math.round(average) > 30) &&  playing) {
-          jump();
+          if (!jumped) {
+            jump();
+            jumped = true;
+          } else {
+            jumped = false;
+          }
         }
       };
     })
@@ -221,9 +227,10 @@ function resetGame() {
   playing = false;
 }
 
-var jumped = false;
+
 
 function deviceOrientationListener(event) {
+  var jumped = false;
   frontToBack_degrees = event.beta;
   leftToRight_degrees = event.gamma;
 
@@ -236,7 +243,7 @@ function deviceOrientationListener(event) {
     directionDegree = leftToRight_degrees;
   }
 
-  if (directionDegree < -5) {
+  if (directionDegree < 5) {
     if (!jumped) {
       jump();
     }
