@@ -145,7 +145,7 @@ body {
     }
 }
 
-@media (width > height) {
+@media only screen and (max-height: 400px) and (max-width: 900px) and (orientation:landscape){
 
     #game{ 
         height: 300px;
