@@ -96,7 +96,7 @@ function mobile_version() {
   if (isMobile.any()) {
     birdFallingSpeed = 4;
     if (this == tiltButton) {
-      birdJumpingSpeed = 5;
+      birdJumpingSpeed = 7;
       mode = "tilt";
       getAccel();
     } else {
