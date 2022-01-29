@@ -204,18 +204,23 @@ function checkGameOver() {
   var birdRight = parseInt(window.getComputedStyle(bird).getPropertyValue("left")) + birdWidth
   if ((birdTop > (gameHeigt-birdHeight)) || (birdTop < 0) 
          || ((holeLeft <= birdRight) && ((birdTop < holeTop) || (birdTop > (holeBottom-birdHeight))))) {
-    playButton.style.display = "block";
-    hole.removeEventListener('animationiteration', holeEventListener);
-    pipe.style.animation = "";
-    hole.style.animation = "";
-    clearInterval(birdFallingInterval);
-    score = 0;
-    scoreText.innerHTML = "score: " + score;
-    bird.style.top = 200 + "px";
-    playing = false;
+    resetGame();
     alert("G a m e  o v e r");
   }
 }
+
+function resetGame() {
+  playButton.style.display = "block";
+  hole.removeEventListener('animationiteration', holeEventListener);
+  pipe.style.animation = "";
+  hole.style.animation = "";
+  clearInterval(birdFallingInterval);
+  score = 0;
+  scoreText.innerHTML = "score: " + score;
+  bird.style.top = 200 + "px";
+  playing = false;
+}
+
 var jumped = false;
 
 function deviceOrientationListener(event) {
