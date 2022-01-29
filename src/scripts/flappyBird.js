@@ -68,6 +68,7 @@ function listenToMicrophone() {
     });
 }
 
+var birdJumpingSpeed = -1;
 var birdFallingSpeed = -1;
 var path = window.location.pathname;
 var page = path.split("/").pop();
@@ -95,9 +96,11 @@ function mobile_version() {
   if (isMobile.any()) {
     birdFallingSpeed = 4;
     if (this == tiltButton) {
+      birdJumpingSpeed = 5;
       mode = "tilt";
       getAccel();
     } else {
+      birdJumpingSpeed = 3;
       mode = "blow";
       listenToMicrophone();
     }
@@ -114,6 +117,7 @@ function web_version() {
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");
     birdFallingSpeed = 2;
+    birdJumpingSpeed = 3;
   } else if (isMobile.any()) {
     alert(switchToWebMessage);
   } 
@@ -175,7 +179,7 @@ function jump() {
   let jump= 0;
   var jumpInterval = setInterval(function() {
     var birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-      bird.style.top = (birdTop - 3) + "px";
+      bird.style.top = (birdTop - birdJumpingSpeed) + "px";
     
     if (jump>20) {
       clearInterval(jumpInterval);
