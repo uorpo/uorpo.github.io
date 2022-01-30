@@ -27,6 +27,7 @@ body {
 #pipe{
     width: 100px;
     height: inherit;
+    border-radius: 10px;
     background-color: rgb(27, 187, 27);
     position: absolute;
     left: 90%;
