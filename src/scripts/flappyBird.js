@@ -118,6 +118,7 @@ function web_version() {
     playButton.classList.remove("play-not-allowed");
     birdFallingSpeed = 2;
     birdJumpingSpeed = 3;
+    document.body.addEventListener('click', jump, true);
   } else if (isMobile.any()) {
     alert(switchToWebMessage);
   } 
@@ -162,14 +163,6 @@ function startGame() {
   birdJumping();
 };
 
-function birdJumping() {
-  console.log(mode);
-  if (mode == "click") {
-    document.body.addEventListener('click', jump, true);
-  } else if (mode == "blow") {
-    
-  } 
-}
 
 function jump() {
   if (!playing) {
