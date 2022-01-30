@@ -96,7 +96,7 @@ function mobile_version() {
     birdFallingSpeed = 4;
     if (this == tiltButton) {
       tiltButton.style.color = "rgb(109, 193, 245)";
-      birdJumpingSpeed = 9;
+      birdJumpingSpeed = 8;
       mode = "tilt";
       getAccel();
     } else {
