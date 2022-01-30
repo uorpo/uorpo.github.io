@@ -28,10 +28,9 @@ var isMobile = {
   },
 };
 
-
+var jumpedBlow = false;
 
 function listenToMicrophone() {
-  var jumped = false;
   navigator.mediaDevices
     .getUserMedia({
       audio: true,
@@ -54,11 +53,11 @@ function listenToMicrophone() {
         const arraySum = array.reduce((a, value) => a + value, 0);
         const average = arraySum / array.length;
         if ((Math.round(average) > 30) &&  playing) {
-          if (!jumped) {
+          if (!jumpedBlow) {
             jump();
-            jumped = true;
+            jumpedBlow = true;
           } else {
-            jumped = false;
+            jumpedBlow = false;
           }
         }
       };
@@ -222,6 +221,8 @@ function resetGame() {
   scoreText.innerHTML = "score: " + score;
   bird.style.top = 200 + "px";
   playing = false;
+  jumpedBlow = false;
+  jumpedTilt = false;
 }
 
 var jumpedTilt = false;
