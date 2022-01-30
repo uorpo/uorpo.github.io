@@ -136,7 +136,7 @@ body {
     }
 
     #hole {
-        height: 390px;
+        height: 400px;
         width: 150px;
     }
 
@@ -145,56 +145,6 @@ body {
     }
 }
 
-@media only screen and (max-height: 400px) and (max-width: 900px) and (orientation:landscape){
 
-    #game{ 
-        height: 300px;
-        width: 600px;
-        margin-top: 15px;
- 
-    }
-
-    .navbar-styling {
-        margin-top: 0px;
-        width: 400px;
-        height: 95px;
-    }
-
-    #play {
-        width: 70px;
-        height: 70px;
-    }
-
-    #bird {
-        width: 50px;
-        height: 50px;
-    }
-
-    #hole {
-        height: 95px;
-        width: 150px;
-    }
-
-    #pipe {
-        width: 150px;
-    }
-
-    svg {
-        width: 50px;
-        height: 50px;
-    }
-
-    img {
-        width: 70px;
-        height: 70px;
-    }
-
-    #score {
-        margin-top: 5px;
-        font-size: x-large;
-        color: rgb(238, 144, 82);
-        z-index: 3;
-    }
-}
 
 
