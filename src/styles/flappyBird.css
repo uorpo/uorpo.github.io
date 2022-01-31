@@ -75,10 +75,15 @@ body {
     z-index: 2;
 }
 
+#click:hover, #blow:hover, #tilt:hover{
+    color:rgb(109, 193, 245);
+}
+
 .play-not-allowed {
     color: gray;
     cursor:default;
 }
+
 
 .play-allowed {
     color: black;
