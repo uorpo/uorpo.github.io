@@ -29,14 +29,9 @@ h5 {
     font-weight: bold;
 }
 
-p {
+p,li {
     font-weight: bold;
 }
-
-li {
-    font-weight: bold;
-}
-
 
 .content-wrapper {
     margin-bottom: 50px;
@@ -53,14 +48,6 @@ a{
     background-color: rgb(221, 239, 250);
     margin-right: 5px;
 } 
-
-a.tilt {
-    background-image: url(../images/tilt.png);
-}
-
-a.tilt:hover {
-    cursor: default;
-}
 
 svg {
     margin-left: 10px;
@@ -90,16 +77,12 @@ a.start:hover {
         font-weight: bold;
     }
 
-    h5 {
+    h5 ,p{
         font-size: x-large;
     }
 
     .p1 {
         font-size: xx-large;
-    }
-    
-    p {
-        font-size: x-large;
     }
     
     li {
