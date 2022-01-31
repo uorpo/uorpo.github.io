@@ -97,10 +97,16 @@ function mobile_version() {
     if (this == tiltButton) {
       birdJumpingSpeed = 8;
       mode = "tilt";
+      tiltButton.style.color = "rgb(109, 193, 245)";
+      clickButton.style.color = "black";
+      blowButton.style.color = "black";
       getAccel();
     } else {
       birdJumpingSpeed = 3;
       mode = "blow";
+      tiltButton.style.color = "black";
+      clickButton.style.color = "black";
+      blowButton.style.color = "rgb(109, 193, 245)";
       listenToMicrophone();
     }
     playButton.classList.add("play-allowed");
@@ -113,6 +119,9 @@ function mobile_version() {
 function web_version() {
   if (isMobile.any() == null) {
     mode = "click";
+    tiltButton.style.color = "black";
+    clickButton.style.color = "rgb(109, 193, 245)";
+    blowButton.style.color = "black";
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");
     birdFallingSpeed = 2;

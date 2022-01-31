@@ -75,7 +75,7 @@ body {
     z-index: 2;
 }
 
-#click:hover, #blow:hover, #tilt:hover{
+#click:hover, #blow:hover, #tilt:hover {
     color:rgb(109, 193, 245);
 }
 
