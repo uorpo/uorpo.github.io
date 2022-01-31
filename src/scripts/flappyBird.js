@@ -1,3 +1,34 @@
+var birdJumpingSpeed = -1;
+var birdFallingSpeed = -1;
+var path = window.location.pathname;
+var page = path.split("/").pop();
+
+var pipe = document.getElementById("pipe");
+var game = document.getElementById("game");
+var hole = document.getElementById("hole");
+var bird = document.getElementById("bird");
+var scoreText = document.getElementById("score");
+
+var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
+var switchToWebMessage = "Bitte wechseln Sie auf die Desktop-Version um diese Version zu spielen.";
+
+var mode = null;
+
+var tiltButton = document.getElementById("tilt");
+tiltButton.addEventListener('click', mobile_version, false);
+var blowButton = document.getElementById("blow");
+blowButton.addEventListener('click', mobile_version, false);
+var clickButton = document.getElementById("click");
+clickButton.addEventListener('click', web_version, false);
+
+var playButton = document.getElementById("play_button");
+playButton.addEventListener('click', hideshow, false);
+playButton.classList.add("play-not-allowed");
+
+var playing = false;
+var score = 0;
+var jumping = 0;
+
 var isMobile = {
   Android: function () {
     return navigator.userAgent.match(/Android/i);
@@ -67,30 +98,6 @@ function listenToMicrophone() {
     });
 }
 
-var birdJumpingSpeed = -1;
-var birdFallingSpeed = -1;
-var path = window.location.pathname;
-var page = path.split("/").pop();
-
-var pipe = document.getElementById("pipe");
-var game = document.getElementById("game");
-var hole = document.getElementById("hole");
-var bird = document.getElementById("bird");
-var scoreText = document.getElementById("score");
-
-var switchToMobileMessage = "Bitte wechseln Sie auf ein mobiles Gerät um diese Version zu spielen.";
-var switchToWebMessage = "Bitte wechseln Sie auf die Webversion um diese Version zu spielen.";
-
-var mode = null;
-
-var tiltButton = document.getElementById("tilt");
-tiltButton.addEventListener('click', mobile_version, false);
-var blowButton = document.getElementById("blow");
-blowButton.addEventListener('click', mobile_version, false);
-var clickButton = document.getElementById("click");
-clickButton.addEventListener('click', web_version, false);
-
-
 function mobile_version() {
   if (isMobile.any()) {
     birdFallingSpeed = 4;
@@ -132,19 +139,11 @@ function web_version() {
   } 
 }
 
-
-
-
-var playButton = document.getElementById("play_button");
-playButton.addEventListener('click', hideshow, false);
-playButton.classList.add("play-not-allowed");
-
 function hideshow() {
   if (mode != null) {
     playButton.style.display = 'none';
   } 
 }
-
 
 function holeEventListener() {
   var top = Math.random() * (parseInt(window.getComputedStyle(game).getPropertyValue("height")) - parseInt(window.getComputedStyle(hole).getPropertyValue("height")));
@@ -152,11 +151,6 @@ function holeEventListener() {
     score++;
     scoreText.innerHTML = "score: " + score;
 }
-
-
-var playing = false;
-var score = 0;
-var jumping = 0;
 
 function startGame() {
   console.log(mode);
@@ -170,7 +164,6 @@ function startGame() {
   birdFalling();
   birdJumping();
 };
-
 
 function jump() {
   if (!playing) {
