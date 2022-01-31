@@ -95,12 +95,10 @@ function mobile_version() {
   if (isMobile.any()) {
     birdFallingSpeed = 4;
     if (this == tiltButton) {
-      tiltButton.style.color = "rgb(109, 193, 245)";
       birdJumpingSpeed = 8;
       mode = "tilt";
       getAccel();
     } else {
-      blowButton.style.color = "rgb(109, 193, 245)";
       birdJumpingSpeed = 3;
       mode = "blow";
       listenToMicrophone();
@@ -120,7 +118,6 @@ function web_version() {
     birdFallingSpeed = 2;
     birdJumpingSpeed = 3;
     document.body.addEventListener('click', jump, true);
-    clickButton.style.color = "rgb(109, 193, 245)";
   } else if (isMobile.any()) {
     alert(switchToWebMessage);
   } 
