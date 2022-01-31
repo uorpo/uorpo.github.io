@@ -85,10 +85,6 @@ a.start:hover {
 
 @media (max-width: 1000px) {
 
-    .content-wrapper {
-        width: 900px;
-    }
-
     h1 {
         font-size: xx-large;
         font-weight: bold;
