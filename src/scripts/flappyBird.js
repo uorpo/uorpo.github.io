@@ -119,14 +119,14 @@ function mobile_version() {
 function web_version() {
   if (isMobile.any() == null) {
     mode = "click";
+    birdFallingSpeed = 2;
+    birdJumpingSpeed = 3;
+    document.body.addEventListener('click', jump, true);
     tiltButton.style.color = "black";
     clickButton.style.color = "rgb(109, 193, 245)";
     blowButton.style.color = "black";
     playButton.classList.add("play-allowed");
     playButton.classList.remove("play-not-allowed");
-    birdFallingSpeed = 2;
-    birdJumpingSpeed = 3;
-    document.body.addEventListener('click', jump, true);
   } else if (isMobile.any()) {
     alert(switchToWebMessage);
   } 
